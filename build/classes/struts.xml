@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 拦截器常量 -->
+	<constant name="struts.action.extension" value="action" /> 
+	<!-- 拦截器上传文件大小 -->
+	<constant name="struts.multipart.maxSize" value="2097152" />
+	<!-- 配置Action -->
+	<package name="ssh1" extends="struts-default" namespace="/">
+		<action name="user_*"
+			class="com.itheima.crm.web.action.UserAction" method="{1}">
+			<result name="login">/login.jsp</result>
+			<result name="success" type="redirect">/index.jsp</result>
+		</action>
+		<action name="customer_*"
+			class="com.itheima.crm.web.action.CustomerAction" method="{1}">
+			<result name="saveUI">/jsp/customer/add.jsp</result>
+			<result name="findAll">/jsp/customer/list.jsp</result>
+			<result name="editSuccess">/jsp/customer/edit.jsp</result>
+			<result name="input">/jsp/customer/add.jsp</result>
+			<result name="saveSuccess" type="redirectAction">
+				customer_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+			<result name="deleteSuccess" type="redirectAction">
+				customer_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+			<result name="updateSuccess" type="redirectAction">
+				customer_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.maximumSize">2097152</param>
+				<param name="fileUpload.allowedExtensions">.jpg</param>
+			</interceptor-ref>
+		</action>
+		<action name="baseDict_*"
+			class="com.itheima.crm.web.action.BaseDictAction" method="{1}">
+		</action>
+		<action name="linkman_*"
+			class="com.itheima.crm.web.action.LinkmanAction" method="{1}">
+			<result name="findAll">/jsp/linkman/list.jsp</result>
+			<result name="saveUI">/jsp/linkman/add.jsp</result>
+			<result name="saveSuccess" type="redirectAction">
+				linkman_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+			<result name="editSuccess">/jsp/linkman/edit.jsp</result>
+			<result name="updateSuccess"  type="redirectAction">
+				linkman_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+			<result name="deleteSuccess" type="redirectAction">
+				linkman_findAll.action?pageSize=&amp;&amp;currPage=
+			</result>
+		</action>
+	</package>
+</struts>          

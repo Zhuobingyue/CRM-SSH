@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-1-23 15:47:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.itheima.crm.domain.Linkman" table="cst_linkman">
+		<id name="lkm_id" type="java.lang.Long">
+			<column name="lkm_id" />
+			<generator class="native" />
+		</id>
+		<property name="lkm_name" type="java.lang.String">
+			<column name="lkm_name" />
+		</property>
+		<property name="lkm_gender" type="java.lang.String">
+			<column name="lkm_gender" />
+		</property>
+		<property name="lkm_phone" type="java.lang.String">
+			<column name="lkm_phone" />
+		</property>
+		<property name="lkm_mobile" type="java.lang.String">
+			<column name="lkm_mobile" />
+		</property>
+		<property name="lkm_email" type="java.lang.String">
+			<column name="lkm_email" />
+		</property>
+		<property name="lkm_qq" type="java.lang.String">
+			<column name="LKM_QQ" />
+		</property>
+		<property name="lkm_position" type="java.lang.String">
+			<column name="lkm_position" />
+		</property>
+		<property name="lkm_memo" type="java.lang.String">
+			<column name="lkm_memo" />
+		</property>
+		<many-to-one name="customer"
+			class="com.itheima.crm.domain.Customer" fetch="join">
+			<column name="lkm_cust_id" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

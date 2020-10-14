@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-1-23 15:47:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.itheima.crm.domain.Customer" table="cst_customer">
+        <id name="cust_id" type="java.lang.Long">
+            <column name="cust_id" />
+            <generator class="native" />
+        </id>
+        <property name="cust_name" type="java.lang.String">
+            <column name="cust_name" />
+        </property>
+        <property name="cust_phone" type="java.lang.String">
+            <column name="cust_phone" />
+        </property>
+        <property name="cust_mobile" type="java.lang.String">
+            <column name="cust_mobile" />
+        </property>
+        <many-to-one name="baseDictSource" class="com.itheima.crm.domain.BaseDict" fetch="join">
+            <column name="cust_Source" />
+        </many-to-one>
+        <many-to-one name="baseDictIndustry" class="com.itheima.crm.domain.BaseDict" fetch="join">
+            <column name="cust_Industry" />
+        </many-to-one>
+        <many-to-one name="baseDictLevel" class="com.itheima.crm.domain.BaseDict" fetch="join">
+            <column name="cust_Level" />
+        </many-to-one>
+        <property name="cust_image" type="java.lang.String">
+            <column name="cust_image" />
+        </property>
+        <set name="linkman" cascade="delete" inverse="true">
+        	<key column="lkm_cust_id" />
+        	<one-to-many class="com.itheima.crm.domain.Linkman"/>
+        </set>
+    </class>
+</hibernate-mapping>

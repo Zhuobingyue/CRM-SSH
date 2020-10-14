@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!--加载hibernate配置文件 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+	<!-- 配置数据源 -->
+	<bean id="datasource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	</bean>
+
+	<!-- 配置action -->
+	<bean id="userAction"
+		class="com.itheima.crm.web.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- 配置service -->
+	<bean id="userService"
+		class="com.itheima.crm.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<!-- 配置dao -->
+	<bean id="userDao" class="com.itheima.crm.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean id="customerAction"
+		class="com.itheima.crm.web.action.CustomerAction" scope="prototype">
+		<property name="customerService" ref="customerService"></property>
+	</bean>
+	<bean id="customerService"
+		class="com.itheima.crm.service.impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"></property>
+	</bean>
+	<bean id="customerDao"
+		class="com.itheima.crm.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="baseDictAction"
+		class="com.itheima.crm.web.action.BaseDictAction">
+		<property name="baseDictService" ref="baseDictService"></property>
+	</bean>
+	<bean id="baseDictService"
+		class="com.itheima.crm.service.impl.BaseDictServiceImpl">
+		<property name="baseDictDao" ref="baseDictDao"></property>
+	</bean>
+	<bean id="baseDictDao"
+		class="com.itheima.crm.dao.impl.BaseDictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="linkmanAction"
+		class="com.itheima.crm.web.action.LinkmanAction">
+		<property name="linkmanService" ref="linkmanService"></property>
+	</bean>
+	<bean id="linkmanService"
+		class="com.itheima.crm.service.impl.LinkmanServiceImpl">
+		<property name="linkmanDao" ref="linkmanDao"></property>
+	</bean>
+	<bean id="linkmanDao"
+		class="com.itheima.crm.dao.impl.LinkmanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- 扫描service下的包 -->
+	<context:component-scan base-package="service" />
+	<!--开启事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+	<!-- 事物管理 -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+</beans>

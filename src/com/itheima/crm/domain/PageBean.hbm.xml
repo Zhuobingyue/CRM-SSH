@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-1-23 15:47:44 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.itheima.crm.domain.PageBean" table="PAGEBEAN">
+        <id name="currPage" type="java.lang.Integer">
+            <column name="CURRPAGE" />
+            <generator class="assigned" />
+        </id>
+        <property name="pageSize" type="java.lang.Integer">
+            <column name="PAGESIZE" />
+        </property>
+        <property name="totalCount" type="java.lang.Integer">
+            <column name="TOTALCOUNT" />
+        </property>
+        <property name="totalPage" type="java.lang.Integer">
+            <column name="TOTALPAGE" />
+        </property>
+        <list name="list" inverse="false" table="PAGEBEAN" lazy="true">
+            <key>
+                <column name="CURRPAGE" />
+            </key>
+            <list-index></list-index>
+            <element type="T">
+                <column name="LIST" />
+            </element>
+        </list>
+    </class>
+</hibernate-mapping>
